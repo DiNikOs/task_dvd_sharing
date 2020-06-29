@@ -134,7 +134,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3N
 #Добавить диск в список взятых дисков(id_disk/id_user) (взять диск)
 POST http://localhost:8188/api/v0/users/2/disks_taken
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0Njc0MDAwfQ.Q1uLv2Hpu6Ik4FWKanC4ZTnCF-xDW6_F3FpTzY0BAIlZaTfJ3lFpUucJRDwZRmfu_Uve5IlmglmvAF8YTnmXYA
 
 { "id": "2"
 }

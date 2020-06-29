@@ -22,7 +22,6 @@ CREATE TABLE users_roles (
   role_id               BIGINT NOT NULL,
 
   PRIMARY KEY (id),
---     PRIMARY KEY (user_id, role_id),
   FOREIGN KEY (user_id)
   REFERENCES users (id),
   FOREIGN KEY (role_id)
@@ -64,13 +63,12 @@ CREATE TABLE disks (
     created               TIMESTAMP NULL,
     title                 VARCHAR(255) NULL,
     last_time_taken_date  TIMESTAMP NULL,
---     status                VARCHAR(255) NULL,
     user_id               BIGINT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id)
     REFERENCES users (id)
 );
--- TAKEN, ARCHIVED, READONLY
+
 INSERT INTO  disks(created, title, last_time_taken_date, user_id)
 VALUES
 (current_date-100,'Title 4', current_date-97, 2),
