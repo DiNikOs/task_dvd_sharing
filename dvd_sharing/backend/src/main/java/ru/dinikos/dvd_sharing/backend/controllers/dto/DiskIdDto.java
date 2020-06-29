@@ -11,11 +11,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DiskIdDto {
 
+    @NotNull(message = "Not Null!")
     Long id;
 
     public void setId(Object id) {

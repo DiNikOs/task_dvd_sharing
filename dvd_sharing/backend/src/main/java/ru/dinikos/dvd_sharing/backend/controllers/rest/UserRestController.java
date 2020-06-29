@@ -12,12 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.dinikos.dvd_sharing.backend.controllers.dto.DiskIdDto;
 import ru.dinikos.dvd_sharing.backend.entities.Disk;
 import ru.dinikos.dvd_sharing.backend.entities.User;
 import ru.dinikos.dvd_sharing.backend.exception.DataErrorResponse;
 import ru.dinikos.dvd_sharing.backend.exception.DataNotFoundException;
+import ru.dinikos.dvd_sharing.backend.exception.ValidationErrorBuilder;
 import ru.dinikos.dvd_sharing.backend.services.AuthService;
 import ru.dinikos.dvd_sharing.backend.services.DiskService;
 import ru.dinikos.dvd_sharing.backend.services.TakenService;
@@ -25,6 +27,7 @@ import ru.dinikos.dvd_sharing.backend.services.UserService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -123,8 +126,11 @@ public class UserRestController extends HttpServlet {
      */
     @PostMapping("/users/{id}/disks_taken")
     public ResponseEntity<?> putTakenUserDisks(@PathVariable Long id,
-                                               @RequestBody DiskIdDto diskId,
+                                               @RequestBody @Valid DiskIdDto diskId, Errors errors,
                                                @RequestHeader (value="Authorization", required = false) String header) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
         if (!isAutorized(id, header)) return new ResponseEntity<>("Bad authorized!", HttpStatus.UNAUTHORIZED);
         Disk disk = diskService.findById(diskId.getId());
         if (diskId == null || !diskService.findFreeDisks().contains(disk)) {
@@ -155,8 +161,11 @@ public class UserRestController extends HttpServlet {
      */
     @PostMapping("/users/{id}/disks_given")
     public ResponseEntity<?> putGivenUserDisks(@PathVariable Long id,
-                                               @RequestBody DiskIdDto diskId,
+                                               @RequestBody @Valid DiskIdDto diskId, Errors errors,
                                                @RequestHeader (value="Authorization", required = false) String header) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
+        }
         if (!isAutorized(id, header)) return new ResponseEntity<>("Bad authorized!", HttpStatus.UNAUTHORIZED);
         if (diskId == null|| id == null || takenService.findTakenItemByDiskId(diskId.getId())==null) {
             new ResponseEntity<>("Bad request!",  HttpStatus.BAD_REQUEST);

@@ -7,6 +7,7 @@
 
 package ru.dinikos.dvd_sharing.backend.controllers.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthRequest {
 
     @NotNull(message = "Not Null!")
