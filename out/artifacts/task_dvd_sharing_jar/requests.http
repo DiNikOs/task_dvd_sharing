@@ -1,0 +1,207 @@
+#Стартовый запрос
+GET http://localhost:8188/api/v0/start
+
+###
+#Тестовый запрос без токена код 403
+GET http://localhost:8188/api/v0/admin/get
+###
+#Тестовый запрос
+GET http://localhost:8188/api/v0/admin/get
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NDUwMTIwMH0.SlYNjesME_lfWWu1XFhP8Y6hbY3fbTi18bj6T0g-KviYUFCfcXCy1HvWF1PCqOT2XZHAWPvgGdJq9NuAGRkjTw
+
+###
+#Запрос списка пользователей доступ админа без повторного запроса на авторизацию
+GET http://localhost:8188/api/v0/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NDUwMTIwMH0.SlYNjesME_lfWWu1XFhP8Y6hbY3fbTi18bj6T0g-KviYUFCfcXCy1HvWF1PCqOT2XZHAWPvgGdJq9NuAGRkjTw
+
+###
+###Регистрация пользователя (отправка логин/пароля)(Проверка на соответствие паролей не проходит)
+POST http://localhost:8188/api/v0/register
+#POST http://localhost:8188/api/v0/auth
+Content-Type:  application/json
+Accept: application/json
+
+{
+  "username": "user11",
+  "password": "11111",
+  "matchingPassword": "1111",
+  "firstName": "User11"
+}
+
+###
+#Регистрация пользователя (отправка логин/пароля)
+POST http://localhost:8188/api/v0/register
+#POST http://localhost:8188/api/v0/auth
+Content-Type:  application/json
+Accept: application/json
+
+{
+  "username": "user10",
+  "password": "11111",
+  "matchingPassword": "11111",
+  "firstName": "User10"
+}
+
+###
+###Валидация пользователя (отправка логин/пароля для входа,пароль меньше 4 не валидный)
+POST http://localhost:8188/api/v0/auth
+#POST http://localhost:8188/api/v0/auth
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "111"
+}
+
+###
+###   eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NDUwMTIwMH0.SlYNjesME_lfWWu1XFhP8Y6hbY3fbTi18bj6T0g-KviYUFCfcXCy1HvWF1PCqOT2XZHAWPvgGdJq9NuAGRkjTw
+#Авторизация админа (отправка логин/пароля для входа)
+POST http://localhost:8188/api/v0/auth
+Content-Type: application/json
+
+{ "username": "admin",
+  "password": "12345"
+}
+
+###
+# eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTAxMjAwfQ.u7YR3yfGfZ3m-dXsH0B-JmxVH8r-xLOIkd5sshpFzReGRcoDqhSU1LNT8WDcdsMPyTqE4cjdmTCcZ_Y7VZAJQQ
+#Авторизация пользователя user (отправка логин/пароля для входа)   ==ОКНО 1==
+POST http://localhost:8188/api/v0/auth
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "11111"
+}
+
+###
+# eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMiIsImV4cCI6MTU5NDUwMTIwMH0.9HuLuXhvMREM6zZ9wCL_LRhXdZDrGKq3g9qB2YTj3iVOjZSZFtofvUpw8pSDFQX2zPn2J9TU8MF3JtMQUOWySQ#Авторизация пользователя user2 (отправка логин/пароля для входа)
+POST http://localhost:8188/api/v0/auth
+#POST http://localhost:8188/api/v0/auth
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "11111"
+}
+
+###
+
+#  eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTAxMjAwfQ.u7YR3yfGfZ3m-dXsH0B-JmxVH8r-xLOIkd5sshpFzReGRcoDqhSU1LNT8WDcdsMPyTqE4cjdmTCcZ_Y7VZAJQ
+#Logout пользователя (отправка id/token)(Авторизованные пользователи хранятся в Map <idUser, token>)
+DELETE http://localhost:8188/api/v0/logout
+#POST http://localhost:8188/api/v0/auth
+Content-Type: application/json
+
+{
+  "userId": "2",
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMiIsImV4cCI6MTU5NDU4NzYwMH0.7ZlCnFU6IyXZ3PUypwZYjKPUbOOwq9qtl_BR8zRdsSS7Mdrp40M5fzRz7oOf76AnO6On4xz0xerXqaaaNjaccg"
+}
+
+###
+#Профиль пользователя
+GET http://localhost:8188/api/v0/users/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0Njc0MDAwfQ.Q1uLv2Hpu6Ik4FWKanC4ZTnCF-xDW6_F3FpTzY0BAIlZaTfJ3lFpUucJRDwZRmfu_Uve5IlmglmvAF8YTnmXYA
+###
+
+#Профиль пользователя с личным списком дисков(id пользователя(idu))    ==ОКНО 2==
+GET http://localhost:8188/api/v0/users/2/disks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+###
+#Получить свободные для взятия диски    ==ОКНО 3==
+GET http://localhost:8188/api/v0/disks/free
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+###
+#Получить список взятых дисков пользователем    ==ОКНО 4===
+GET http://localhost:8188/api/v0/users/2/disks_taken
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+###
+#Получить список взятых дисков у пользователя    ==ОКНО 5===
+GET http://localhost:8188/api/v0/users/2/disks_given
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+###
+#Добавить диск в список взятых дисков(id_disk/id_user) (взять диск)
+POST http://localhost:8188/api/v0/users/2/disks_taken
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+{ "id": "2"
+}
+
+###
+
+#Получить список взятых дисков user2    ==ОКНО 4===
+GET http://localhost:8188/api/v0/users/3/disks_taken
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+###
+
+#Добавить диск в список свободных дисков(id_disk/id_user) (отдать диск)
+POST http://localhost:8188/api/v0/users/2/disks_given
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+{ "id": "2"
+}
+
+###
+### Получить список всех дисков
+GET http://localhost:8188/api/v0/disks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+###
+#Добавить новый диск
+POST http://localhost:8188/api/v0/disks/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+{
+  "id": "",
+  "created": "",
+  "title": "Title 55",
+  "lastDate": "",
+  "userId": 2
+}
+
+###
+### Удалить диск из списка. Удалить может только тот кто создал
+DELETE http://localhost:8188/api/v0/disks/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTk0NTg3NjAwfQ.jGPGBBynk2efejh3sGd_ephvqchUcSf0U2u8xaLX1PY9uv903Nd4euKr3fN77w27HrTBfLOAXrkxymTa8DW2MA
+
+{
+  "id": "21",
+  "created": "",
+  "title": "Title 55",
+  "lastDate": "",
+  "userId": 2
+}
+
+###
+#Получить список взятых (taken) дисков пользователя  без токена
+GET http://localhost:8188/api/v0/users/1/disks_taken
+
+###
+#Проверка на роль ADMIN без токена
+GET http://localhost:8188/api/v0/users
+Content-Type: application/json
+
+###
+#Получить проверка на роль ADMIN с токеном USER
+GET http://localhost:8188/api/v0/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU5NDUwMTIwMH0.YBhX7xt0zILfrnr98vffzvDqaXbRVSCfkaDkSw0W3pnhPjTg_aiqi3kEpFchPkMilEFluJKkfqGlwRl3KPN00A
+
+###
