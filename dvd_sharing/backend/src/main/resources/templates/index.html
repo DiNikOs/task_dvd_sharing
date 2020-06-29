@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head  th:remove="tag" th:replace="fragments/header.html :: head">
+	</head>
+
+	<body class="skin-orange">
+	<!-- HEADER -->
+	<header class="primary"  th:remove="tag" th:replace="fragments/header.html :: header">
+	</header>
+	<!-- /HEADER -->
+	<div class="container" id="container">
+		<!-- Trigger the modal with a button -->
+		<h1>Start page</h1>
+	</div>
+
+	<!-- FOOTER -->
+	<footer th:replace="fragments/footer :: footer"></footer>	<!-- /FOOTER -->
+
+<!--	<script>-->
+<!--		function readFile(input) {-->
+<!--			console.log('Input:', input.files[0]);-->
+<!--			let fi = new File(["id", "name","created","counts"], "data_table.json", {-->
+<!--				type: "application/json",-->
+<!--			});-->
+<!--			console.log('Fi:', fi);-->
+<!--			let file = input.files[0];-->
+<!--			console.log('File:', file);-->
+<!--			let reader = new FileReader();-->
+
+<!--			reader.readAsText(fi);-->
+
+<!--			reader.onload = function() {-->
+<!--				console.log('Result:', reader.result);-->
+<!--			};-->
+
+<!--			reader.onerror = function() {-->
+<!--				console.log('Reader Error:', reader.error);-->
+<!--			};-->
+
+<!--		}-->
+<!--	</script>-->
+
+	<script type="text/javascript" th:src="@{/js/create.js}"></script>
+	<script type="text/javascript" th:src="@{/js/graph.js}"></script>
+
+	</body>
+</html>
