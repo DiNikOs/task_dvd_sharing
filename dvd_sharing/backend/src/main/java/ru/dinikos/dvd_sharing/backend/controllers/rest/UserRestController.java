@@ -134,7 +134,7 @@ public class UserRestController extends HttpServlet {
         if (!isAutorized(id, header)) return new ResponseEntity<>("Bad authorized!", HttpStatus.UNAUTHORIZED);
         Disk disk = diskService.findById(diskId.getId());
         if (diskId == null || !diskService.findFreeDisks().contains(disk)) {
-            new ResponseEntity<>("Bad request!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Bad request!", HttpStatus.BAD_REQUEST);
         } else {
             takenService.saveTakenItem(id, diskId.getId());
         }
@@ -168,7 +168,7 @@ public class UserRestController extends HttpServlet {
         }
         if (!isAutorized(id, header)) return new ResponseEntity<>("Bad authorized!", HttpStatus.UNAUTHORIZED);
         if (diskId == null|| id == null || takenService.findTakenItemByDiskId(diskId.getId())==null) {
-            new ResponseEntity<>("Bad request!",  HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Bad request!",  HttpStatus.BAD_REQUEST);
         } else {
             takenService.deliteTakenItem(diskId.getId());
         }
