@@ -125,8 +125,8 @@ public class UserRestController extends HttpServlet {
      * возвращает список взятых
      */
     @PostMapping("/users/{id}/disks_taken")
-    public ResponseEntity<?> putTakenUserDisks(@PathVariable Long id,
-                                               @RequestBody @Valid DiskIdDto diskId, Errors errors,
+    public ResponseEntity<?> putTakenUserDisks(@Valid @RequestBody DiskIdDto diskId, Errors errors,
+                                               @PathVariable Long id,
                                                @RequestHeader (value="Authorization", required = false) String header) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
@@ -160,8 +160,8 @@ public class UserRestController extends HttpServlet {
      * возвращает список взятых
      */
     @PostMapping("/users/{id}/disks_given")
-    public ResponseEntity<?> putGivenUserDisks(@PathVariable Long id,
-                                               @RequestBody @Valid DiskIdDto diskId, Errors errors,
+    public ResponseEntity<?> putGivenUserDisks(@Valid @RequestBody DiskIdDto diskId, Errors errors,
+                                               @PathVariable Long id,
                                                @RequestHeader (value="Authorization", required = false) String header) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));

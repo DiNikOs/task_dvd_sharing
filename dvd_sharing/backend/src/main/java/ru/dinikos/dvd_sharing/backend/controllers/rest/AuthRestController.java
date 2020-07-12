@@ -36,7 +36,7 @@ public class AuthRestController {
      * Метод регитрации пользователя
      */
     @PostMapping(value = "/register" , consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity registerUser(@RequestBody @Valid AuthDto authDto, Errors errors) {
+    public ResponseEntity registerUser(@Valid @RequestBody AuthDto authDto, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
@@ -51,7 +51,7 @@ public class AuthRestController {
      * Метод авторизации пользователя
      */
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> auth(@RequestBody @Valid AuthRequest request, Errors errors) {
+    public ResponseEntity<?> auth(@Valid @RequestBody AuthRequest request, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }

@@ -74,7 +74,7 @@ public class DiskRestController extends HttpServlet {
      * возвращает список всех дисков
      */
     @PostMapping()
-    public ResponseEntity<?> addDisk(@RequestBody @Valid DiskDto diskDto, Errors errors) {
+    public ResponseEntity<?> addDisk(@Valid @RequestBody DiskDto diskDto, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
@@ -90,7 +90,7 @@ public class DiskRestController extends HttpServlet {
      * возвращает список всех дисков
      */
     @DeleteMapping()
-    public ResponseEntity<?> deleteDiskByUserDisk(@RequestBody DiskDto diskDto, Errors errors) {
+    public ResponseEntity<?> deleteDiskByUserDisk(@Valid @RequestBody DiskDto diskDto, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
