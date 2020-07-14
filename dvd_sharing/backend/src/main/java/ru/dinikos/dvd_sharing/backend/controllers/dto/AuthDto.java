@@ -7,27 +7,25 @@
 
 package ru.dinikos.dvd_sharing.backend.controllers.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//@Getter
-//@RequiredArgsConstructor
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthDto {
     @NotNull(message = "Not Null!")
     @Size(min = 4, max = 100, message = "Имя пользователя от 4 до 100 символов")
-    private final String username;
+    private String username;
 
     @NotNull(message = "Not Null!")
     @Size(min = 4, max = 30, message = "Too short <4!")
     //    @Pattern(regexp = "(?=^.{4,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z])", message = "Must be a-Z,0-9,_'^&/+! and <4")
-    private final String password;
+    private String password;
 
     @NotNull(message = "Not Null!")
     @Size(min = 4, max = 30, message = "Too short <4!")
@@ -41,4 +39,5 @@ public class AuthDto {
     private boolean isValid() {
         return this.password.equals(this.matchingPassword);
     }
+
 }

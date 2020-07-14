@@ -125,8 +125,8 @@ public class UserRestController extends HttpServlet {
      * возвращает список взятых
      */
     @PostMapping("/users/{id}/disks_taken")
-    public ResponseEntity<?> putTakenUserDisks(@PathVariable Long id,
-                                               @RequestBody @Valid DiskIdDto diskId, Errors errors,
+    public ResponseEntity<?> putTakenUserDisks(@Valid @RequestBody DiskIdDto diskId, Errors errors,
+                                               @PathVariable Long id,
                                                @RequestHeader (value="Authorization", required = false) String header) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
@@ -134,7 +134,7 @@ public class UserRestController extends HttpServlet {
         if (!isAutorized(id, header)) return new ResponseEntity<>("Bad authorized!", HttpStatus.UNAUTHORIZED);
         Disk disk = diskService.findById(diskId.getId());
         if (diskId == null || !diskService.findFreeDisks().contains(disk)) {
-            new ResponseEntity<>("Bad request!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Bad request!", HttpStatus.BAD_REQUEST);
         } else {
             takenService.saveTakenItem(id, diskId.getId());
         }
@@ -160,15 +160,15 @@ public class UserRestController extends HttpServlet {
      * возвращает список взятых
      */
     @PostMapping("/users/{id}/disks_given")
-    public ResponseEntity<?> putGivenUserDisks(@PathVariable Long id,
-                                               @RequestBody @Valid DiskIdDto diskId, Errors errors,
+    public ResponseEntity<?> putGivenUserDisks(@Valid @RequestBody DiskIdDto diskId, Errors errors,
+                                               @PathVariable Long id,
                                                @RequestHeader (value="Authorization", required = false) String header) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }
         if (!isAutorized(id, header)) return new ResponseEntity<>("Bad authorized!", HttpStatus.UNAUTHORIZED);
         if (diskId == null|| id == null || takenService.findTakenItemByDiskId(diskId.getId())==null) {
-            new ResponseEntity<>("Bad request!",  HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Bad request!",  HttpStatus.BAD_REQUEST);
         } else {
             takenService.deliteTakenItem(diskId.getId());
         }
