@@ -1,26 +1,26 @@
 Application stack:
 
-Java.
-Spring boot.
-Hibernate.
-FlyWay.
-MySQL BD.
-Thymeleaf.
-Maven.
-Lombok.
-REST API.
-JWT Bearer token.
+1. Java.
+2. Spring boot.
+3. Hibernate.
+4. FlyWay.
+5. MySQL BD.
+6. Thymeleaf.
+7. Maven.
+8. Lombok.
+9. REST API.
+10.JWT Bearer token.
 
 Задание:
 
 Написание автоматизации ресурса по обмену DVD-дисками, веб-приложение - только REST API (UI не реализовано).
 
 Стек технологий:
-Java 8+
-Spring Framework (Spring Boot)
-ORM (Hibernate)
-СУБД (на выбор)
-Maven/Gradle
+- Java 8+
+- Spring Framework (Spring Boot)
+- ORM (Hibernate)
+- СУБД (на выбор)
+- Maven/Gradle
 
 Функциональные требования:
 
@@ -36,12 +36,13 @@ Maven/Gradle
 - список дисков, взятых у пользователя (с указанием, кто взял)
 
 Диск можно взять и отдать (без денежных расчётов).
-СУБД - MySQL .
+СУБД - MySQL.
 Работа с СУБД – Hibernate.
 Для организации работы с ORM и в качестве «клея» для слоев приложения используется Spring Boot.
+Безопасность реализована по средствам передачи JWT Bearer token.
 Сборка проекта производится при помощи Maven.
 Запуск приложения в Windows out/artifacts/task_dvd_sharing_jar/run.bat.
- 
+
 Оформление результата:
 
 Проект на github содержащий исходники, файлы сборки, библиотеки подгружаются через MVN, SQL-скрипты создания базы и заполнения ее начальными данными.
